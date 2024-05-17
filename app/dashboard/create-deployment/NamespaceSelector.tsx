@@ -4,8 +4,8 @@ import {
   CreateServiceContext,
 } from "../../context/contexts";
 import clsx from "clsx";
-import InfoCardWrapper from "@/app/components/CardWrapper";
-import InputErrorMessage from "@/app/components/InputErrorMessage";
+import InfoCardWrapper from "@/app/components/input/CardWrapper";
+import InputErrorMessage from "@/app/components/input/InputErrorMessage";
 import { z } from "zod";
 import { createDeploymentScehma } from "@/app/schema";
 

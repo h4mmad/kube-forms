@@ -11,6 +11,3 @@ export class Helper {
     return result;
   }
 }
-
-export const fetcher = (...args) =>
-  fetch(...(args as [])).then((res) => res.json());

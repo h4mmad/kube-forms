@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { CreateDeploymentContext } from "../../context/contexts";
 import clsx from "clsx";
-import InputBox from "@/app/components/InputBox";
-import CardWrapper from "@/app/components/CardWrapper";
+import InputBox from "@/app/components/input/InputBox";
+import CardWrapper from "@/app/components/input/CardWrapper";
 
 const DeploymentName = () => {
   const {

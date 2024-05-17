@@ -13,6 +13,7 @@ import { z } from "zod";
 import KeyValueInput from "./KeyValueInput";
 import Container from "./Container";
 import { Helper } from "@/app/lib";
+import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
 
 const submitHandler: SubmitHandler<
   z.infer<typeof createDeploymentScehma>
@@ -42,25 +43,23 @@ const CreateDeploymentForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(submitHandler)}>
-        <div className="flex flex-col space-y-12 mt-16">
-          <div className="space-y-10">
-            <DeploymentName />
+        <ContentWrapper>
+          <DeploymentName />
 
-            <div className="flex flex-row justify-between space-x-12">
-              <NamespaceSelector
-                register={register("namespace")}
-                errorMessage={errors.namespace?.message}
-              />
-              <Replicas />
-            </div>
-
-            <KeyValueInput
-              Context={CreateDeploymentContext}
-              heading="Selector"
-              fieldArrayName="selector"
-              description="Via a label selector, when a deployment's selector matches the labels of a Pod, the Pod becomes selected by the deployment."
+          <div className="flex flex-row justify-between space-x-12">
+            <NamespaceSelector
+              register={register("namespace")}
+              errorMessage={errors.namespace?.message}
             />
+            <Replicas />
           </div>
+
+          <KeyValueInput
+            Context={CreateDeploymentContext}
+            heading="Selector"
+            fieldArrayName="selector"
+            description="Via a label selector, when a deployment's selector matches the labels of a Pod, the Pod becomes selected by the deployment."
+          />
 
           <br />
 
@@ -74,7 +73,7 @@ const CreateDeploymentForm = () => {
             />
             <Container />
           </div>
-        </div>
+        </ContentWrapper>
         <button
           type="submit"
           className="px-4 py-2 mt-24 rounded-full hover:bg-[#413839] bg-black border border-black text-white font-semibold ml-auto w-fit"

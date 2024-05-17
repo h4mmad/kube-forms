@@ -1,6 +1,6 @@
 "use client";
-import InfoBox from "@/app/components/InfoBox";
-import { PageHeading } from "@/app/components/PageHeading";
+import InfoBox from "@/app/components/page-layout/InfoBox";
+import { PageHeading } from "@/app/components/page-layout/PageHeading";
 
 import CreateServiceForm from "./CreateServiceForm";
 import CreateServiceContextWrapper from "@/app/context/createServiceContextWrapper";

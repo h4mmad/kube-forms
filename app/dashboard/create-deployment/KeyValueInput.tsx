@@ -1,7 +1,7 @@
-import CardWrapper from "@/app/components/CardWrapper";
-import InputBox from "@/app/components/InputBox";
-import InputErrorMessage from "@/app/components/InputErrorMessage";
-import NoData from "@/app/components/NoData";
+import CardWrapper from "@/app/components/input/CardWrapper";
+import InputBox from "@/app/components/input/InputBox";
+import InputErrorMessage from "@/app/components/input/InputErrorMessage";
+import NoData from "@/app/components/input/NoData";
 import { CreateDeploymentContext } from "@/app/context/contexts";
 import { Context, useContext } from "react";
 import { useFieldArray } from "react-hook-form";

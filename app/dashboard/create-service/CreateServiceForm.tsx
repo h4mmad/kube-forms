@@ -1,6 +1,6 @@
 "use client";
-import CardWrapper from "@/app/components/CardWrapper";
-import InputBox from "@/app/components/InputBox";
+import CardWrapper from "@/app/components/input/CardWrapper";
+import InputBox from "@/app/components/input/InputBox";
 import { CreateServiceContext } from "@/app/context/contexts";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,6 +16,9 @@ import NamespaceSelector from "../create-deployment/NamespaceSelector";
 import { createServiceFormAction } from "@/app/actions";
 import { Helper } from "@/app/lib";
 import { toast } from "react-toastify";
+import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
+import InputErrorMessage from "@/app/components/input/InputErrorMessage";
+import { MdDelete } from "react-icons/md";
 
 const submitHandler: SubmitHandler<
   z.infer<typeof createServiceSchema>
@@ -51,17 +54,7 @@ const CreateServiceForm = () => {
     },
   ];
   const [index, setIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState({
-    label: "Cluster IP",
-    value: "ClusterIP",
-    src: ClusterIP,
-    info: "Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default that is used if you don't explicitly specify a type for a Service.",
-  });
 
-  const handleChange = (option: any) => {
-    setSelectedOption(option);
-    setIndex(options.findIndex((opt) => opt.value === option.value));
-  };
   const {
     control,
     formState: { errors },
@@ -73,7 +66,7 @@ const CreateServiceForm = () => {
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
-      <div className="space-y-10 mt-16 ml-8">
+      <ContentWrapper>
         <CardWrapper
           heading="Name"
           description="A service name should be unique within a namespace"
@@ -100,17 +93,11 @@ const CreateServiceForm = () => {
           heading="Type"
           description="For some parts of your application (for example, frontends) you may want to expose a Service onto an external IP address, one that's accessible from outside of your cluster. Kubernetes Service types allow you to specify what kind of Service you want."
         >
-          {/* <Select
-            value={selectedOption}
-            defaultValue={options[0]}
-            options={options}
-            onChange={handleChange}
-          /> */}
-
           <select
             {...register("type")}
             className="p-2 w-full rounded-lg bg-slate-50 border"
             defaultValue={options[0].value}
+            onChange={(e: any) => setIndex(e.target.selectedIndex)}
           >
             <option value={options[0].value}>{options[0].label}</option>
             <option value={options[1].value}>{options[1].label}</option>
@@ -119,7 +106,7 @@ const CreateServiceForm = () => {
           <div className="flex space-x-4 flex-row border rounded-xl p-6 mt-6 bg-white">
             <Image
               alt="logo"
-              src={selectedOption.src}
+              src={options[index].src}
               width={350}
               height={350}
             />
@@ -129,6 +116,7 @@ const CreateServiceForm = () => {
               <p className="mt-2">{options[index].info}</p>
             </div>
           </div>
+          <InputErrorMessage message={errors.type?.message} />
         </CardWrapper>
 
         <CardWrapper
@@ -141,50 +129,61 @@ const CreateServiceForm = () => {
                 append({ port: 80, protocol: "TCP", targetPort: 80 })
               }
             >
-              Add port
+              Add +
             </button>
           }
         >
           {fields.map((port, index) => {
             return (
-              <div key={port.id}>
-                <InputBox
-                  errorMessage=""
-                  placeholder="port"
-                  type="number"
-                  label="Port"
-                  register={register(`ports.${index}.port` as const, {
-                    valueAsNumber: true,
-                  })}
-                />
-                <InputBox
-                  errorMessage=""
-                  placeholder="port"
-                  type="number"
-                  label="Target port"
-                  register={register(`ports.${index}.targetPort` as const, {
-                    valueAsNumber: true,
-                  })}
-                />
-                <InputBox
-                  errorMessage=""
-                  placeholder="protocol"
-                  type="text"
-                  label="Transport Layer 4 protocol"
-                  register={register(`ports.${index}.protocol` as const)}
-                />
+              <div
+                key={port.id}
+                className="flex flex-row justify-between items-center mt-8"
+              >
+                <div className="flex flex-row space-x-6">
+                  <InputBox
+                    errorMessage=""
+                    type="number"
+                    label="Port"
+                    register={register(`ports.${index}.port` as const, {
+                      valueAsNumber: true,
+                    })}
+                  />
+                  <InputBox
+                    errorMessage=""
+                    type="number"
+                    label="Target port"
+                    register={register(`ports.${index}.targetPort` as const, {
+                      valueAsNumber: true,
+                    })}
+                  />
+                  <InputBox
+                    errorMessage=""
+                    placeholder="protocol"
+                    type="text"
+                    label="Protocol"
+                    register={register(`ports.${index}.protocol` as const)}
+                  />
+                </div>
+
+                <button
+                  onClick={() => remove(index)}
+                  type="button"
+                  className=" text-red-500 "
+                >
+                  <MdDelete size={28} />
+                </button>
               </div>
             );
           })}
+          <InputErrorMessage message={errors.ports?.message} />
         </CardWrapper>
-
-        <button
-          type="submit"
-          className="px-4 py-2 mt-10 rounded-full hover:bg-[#413839] bg-black border border-black text-white font-semibold ml-auto w-fit"
-        >
-          Create service
-        </button>
-      </div>
+      </ContentWrapper>
+      <button
+        type="submit"
+        className="px-4 py-2 mt-10 rounded-full hover:bg-[#413839] bg-black border border-black text-white font-semibold ml-auto w-fit"
+      >
+        Create service
+      </button>
     </form>
   );
 };

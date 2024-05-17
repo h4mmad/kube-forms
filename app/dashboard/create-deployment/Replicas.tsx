@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { CreateDeploymentContext } from "../../context/contexts";
-import InputBox from "@/app/components/InputBox";
-import InfoCardWrapper from "@/app/components/CardWrapper";
+import InfoCardWrapper from "@/app/components/input/CardWrapper";
 
 const Replicas = () => {
   const {

@@ -4,7 +4,7 @@ export async function GET(request: Request) {
   const data = await getClusterEndpoint();
 
   return Response.json({
-    clusterName: data?.clusterName,
-    clusterServer: data?.clusterServer,
+    clusterName: data?.name,
+    clusterServer: data?.server,
   });
 }

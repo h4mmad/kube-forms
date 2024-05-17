@@ -1,10 +1,9 @@
 export const dynamic = "force-dynamic";
 
-import InfoBox from "@/app/components/InfoBox";
-import PageDescription from "@/app/components/PageDescription";
-import { PageHeading } from "@/app/components/PageHeading";
+import InfoBox from "@/app/components/page-layout/InfoBox";
+import { PageHeading } from "@/app/components/page-layout/PageHeading";
 import getNamespacedPod from "@/app/kubernetes-actions/view-pods";
-import { V1Pod, V1PodList } from "@kubernetes/client-node";
+import { V1Pod } from "@kubernetes/client-node";
 import { Suspense } from "react";
 
 async function Pods() {

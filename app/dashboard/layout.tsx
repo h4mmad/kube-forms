@@ -1,4 +1,4 @@
-import { SideNav } from "../components/SideNav";
+import { SideNav } from "../components/side-nav/SideNav";
 import { Open_Sans } from "next/font/google";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import Error from "./error";

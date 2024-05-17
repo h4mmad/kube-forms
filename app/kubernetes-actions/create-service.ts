@@ -2,13 +2,13 @@
 import { z } from "zod";
 import { createServiceSchema } from "../schema";
 import { Helper } from "../lib";
-import { CoreV1ApiClient } from "../KubernetesClient";
+import { getCoreV1Client } from "../KubernetesClient";
 
 async function createService(data: z.infer<typeof createServiceSchema>) {
   const helper = new Helper();
   const { namespace, ports, selector, serviceName, type } = data;
 
-  return CoreV1ApiClient.createNamespacedService(namespace, {
+  return (await getCoreV1Client()).createNamespacedService(namespace, {
     apiVersion: "v1",
     kind: "Service",
     metadata: {

@@ -6,7 +6,7 @@ const keyValueSchema = () =>
   z
     .array(
       object({
-        key: string().min(1, { message: "Should contain atleast 1 element" }),
+        key: string().min(1),
         value: string().min(1),
       })
     )

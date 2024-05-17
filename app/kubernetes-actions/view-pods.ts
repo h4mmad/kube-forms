@@ -1,8 +1,10 @@
-import { CoreV1ApiClient } from "../KubernetesClient";
+import { getCoreV1Client } from "../KubernetesClient";
 
-async function getNamespacedPod(namespace: string = "kube-system") {
+async function getNamespacedPod(namespace: string = "default") {
   try {
-    const response = await CoreV1ApiClient.listNamespacedPod(namespace);
+    const response = await (
+      await getCoreV1Client()
+    ).listNamespacedPod(namespace);
 
     return response?.body;
   } catch (error) {

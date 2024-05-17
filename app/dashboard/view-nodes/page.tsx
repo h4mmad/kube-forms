@@ -1,9 +1,12 @@
 export const dynamic = "force-dynamic";
 
-import InfoBox from "@/app/components/InfoBox";
-import { PageHeading } from "@/app/components/PageHeading";
+import InfoBox from "@/app/components/page-layout/InfoBox";
+import { PageHeading } from "@/app/components/page-layout/PageHeading";
 import getNodes from "@/app/kubernetes-actions/view-nodes";
 import { Suspense } from "react";
+import Image from "next/image";
+import Loader from "@/public/loader.svg";
+import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
 
 async function Nodes() {
   const data = await getNodes();
@@ -73,11 +76,34 @@ async function Page() {
         cluster. Each node is managed by the control plane and contains the
         services necessary to run Pods."
       />
-      <Suspense fallback={<div>Loading...</div>}>
-        <Nodes />
-      </Suspense>
+      <ContentWrapper>
+        <Suspense
+          fallback={
+            <div className="space-x-4">
+              <NodeCardSkeleton count={3} />
+            </div>
+          }
+        >
+          <Nodes />
+        </Suspense>
+      </ContentWrapper>
     </div>
   );
 }
+
+const NodeCardSkeleton = ({ count }: { count: number }) => {
+  const skeletons = Array.from({ length: count }, (_, index) => (
+    <div
+      key={index}
+      className="w-full h-fit bg-slate-100 space-y-6 rounded-xl animate-pulse p-6"
+    >
+      <div className="w-2/3 h-4 bg-slate-200 animate-pulse " />
+      <div className="w-1/4 h-4 bg-slate-300 animate-pulse " />
+      <div className="w-1/3 h-4 bg-slate-200 animate-pulse " />
+    </div>
+  ));
+
+  return <div className="h-screen">{skeletons}</div>;
+};
 
 export default Page;
