@@ -5,14 +5,14 @@ import { CreateServiceContext } from "@/app/context/contexts";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useContext, useState } from "react";
-import KeyValueInput from "../create-deployment/KeyValueInput";
+import KeyValueInput from "../../create-deployment/KeyValueInput";
 import { SubmitHandler, useFieldArray } from "react-hook-form";
 import { createServiceSchema } from "@/app/schema";
 import { z } from "zod";
 import Image from "next/image";
 import ClusterIP from "@/public/ClusterIP.drawio.svg";
 import NodePort from "@/public/NodePort.drawio.svg";
-import NamespaceSelector from "../create-deployment/NamespaceSelector";
+import NamespaceSelector from "../../create-deployment/NamespaceSelector";
 import { createServiceFormAction } from "@/app/actions";
 import { Helper } from "@/app/lib";
 import { toast } from "react-toastify";

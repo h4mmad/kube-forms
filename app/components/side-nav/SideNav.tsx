@@ -10,7 +10,7 @@ import NavButton from "./NavButton";
 export function SideNav() {
   return (
     <nav className="flex flex-col p-4 border-r w-fit h-screen ">
-      <Image alt="logo" src={Logo} width={150} height={100} />
+      <Image alt="logo" src={Logo} width={150} height={150} />
       <ClusterCard />
       <ul className="space-y-16 mt-20">
         <li>
@@ -36,7 +36,8 @@ export function SideNav() {
         </li>
         <li>
           <NavButton
-            href="/dashboard/create-service"
+            href="/dashboard/service/create-service"
+            parentRoute="/dashboard/service/"
             icon={<FaNetworkWired size={22} />}
             text="Networking"
           />
