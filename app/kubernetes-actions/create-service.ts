@@ -1,8 +1,8 @@
 "use server";
 import { z } from "zod";
-import { createServiceSchema } from "../schema";
-import { Helper } from "../lib";
-import { getCoreV1Client } from "../KubernetesClient";
+import { createServiceSchema } from "../utils/schema";
+import { Helper } from "../utils/lib";
+import { getCoreV1Client } from "../utils/KubernetesClient";
 
 async function createService(data: z.infer<typeof createServiceSchema>) {
   const helper = new Helper();

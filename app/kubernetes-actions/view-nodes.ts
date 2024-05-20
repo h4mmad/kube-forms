@@ -1,4 +1,4 @@
-import { getCoreV1Client } from "../KubernetesClient";
+import { getCoreV1Client } from "../utils/KubernetesClient";
 
 async function getNodes() {
   try {

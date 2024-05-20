@@ -1,8 +1,10 @@
 "use client";
+import { GlobalContext } from "@/app/context/globalContext";
 import clsx from "clsx";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 type NavButtonProps = {
   icon?: any;
   text: string;
@@ -11,6 +13,12 @@ type NavButtonProps = {
 };
 
 function NavButton({ icon, text, href, parentRoute }: NavButtonProps) {
+  useEffect(() => {
+    if (localStorage.getItem("config")) {
+      const config = localStorage.getItem("config");
+      console.log("from localstorage and navbutton: ", config);
+    }
+  }, []);
   const currentPath = usePathname();
   const [active, setActive] = useState<boolean>();
 

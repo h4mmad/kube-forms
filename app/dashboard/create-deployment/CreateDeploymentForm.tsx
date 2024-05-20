@@ -2,17 +2,17 @@
 import { SubmitHandler } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { formAction } from "../../actions";
+import { formAction } from "../../utils/actions";
 import NamespaceSelector from "./NamespaceSelector";
 import DeploymentName from "./DeploymentName";
 import Replicas from "./Replicas";
-import { createDeploymentScehma } from "../../schema";
+import { createDeploymentScehma } from "../../utils/schema";
 import { useContext } from "react";
 import { CreateDeploymentContext } from "../../context/contexts";
 import { z } from "zod";
 import KeyValueInput from "./KeyValueInput";
 import Container from "./Container";
-import { Helper } from "@/app/lib";
+import { Helper } from "@/app/utils/lib";
 import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
 
 const submitHandler: SubmitHandler<

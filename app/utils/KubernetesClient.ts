@@ -1,24 +1,47 @@
 "use server";
 const k8s = require("@kubernetes/client-node");
-
-const kc = new k8s.KubeConfig();
-kc.loadFromDefault();
+import fs from "fs";
+import { redirect } from "next/navigation";
 
 import { AppsV1Api, CoreV1Api, KubeConfig } from "@kubernetes/client-node";
 
 export async function getKubeConfig() {
   try {
     const kc: KubeConfig = new k8s.KubeConfig();
-    kc.loadFromDefault();
+
+    const filePath = "public/uploads/kubeconfig";
+
+    if (!fs.existsSync(filePath)) throw Error;
+
+    kc.loadFromFile("public/uploads/kubeconfig");
+
+    console.log("Loaded from file");
     // pingKubernetesApiServer(kc);
     return kc;
   } catch (err) {
+    redirect("/upload");
     console.error("Error loading kube config file:", err);
     throw err;
   }
 }
 
+// let kubeConfigContent: any = null;
+
+// export const setKubeConfig = (configContent: any) => {
+//   kubeConfigContent = configContent;
+//   console.log("config set");
+//   redirect("/dashboard/view-nodes");
+// };
+
+// export const getKubeClient = () => {
+//   const kc = new k8s.KubeConfig();
+//   kc.loadFromString(kubeConfigContent);
+
+//   return kc.makeApiClient(k8s.CoreV1Api);
+// };
+
 export async function getApiServerAddress() {
+  // const kc = await getKubeConfig();
   const kc = await getKubeConfig();
   const currentContext = kc.getCurrentContext();
   const context = kc.getContextObject(currentContext);
@@ -37,6 +60,7 @@ export async function getApiServerAddress() {
 
 export async function getAppsV1ApiClient() {
   try {
+    // const kc = await getKubeConfig();
     const kc = await getKubeConfig();
     const AppsV1ApiClient: AppsV1Api = kc.makeApiClient(k8s.AppsV1Api);
     return AppsV1ApiClient;
@@ -47,6 +71,7 @@ export async function getAppsV1ApiClient() {
 
 export async function getMetricsClient() {
   try {
+    // const kc = await getKubeConfig();
     const kc = await getKubeConfig();
     const metricsClient = new k8s.Metrics(kc);
     return metricsClient;
@@ -57,6 +82,7 @@ export async function getMetricsClient() {
 
 export async function getCoreV1Client() {
   try {
+    // const kc = await getKubeConfig();
     const kc = await getKubeConfig();
     const CoreV1ApiClient: CoreV1Api = kc.makeApiClient(k8s.CoreV1Api);
     return CoreV1ApiClient;

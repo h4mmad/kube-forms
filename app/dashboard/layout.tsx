@@ -3,6 +3,8 @@ import { Open_Sans } from "next/font/google";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import Error from "./error";
 import { Slide, ToastContainer } from "react-toastify";
+import { GlobalContext } from "../context/globalContext";
+import GlobalContextWrapper from "../context/globalContextWrapper";
 
 const open_sans = Open_Sans({
   subsets: ["latin"],
@@ -18,24 +20,26 @@ export default function RootLayout({
   return (
     <div className={open_sans.className}>
       <div className="flex 2xl:w-3/4 mx-auto">
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-          transition={Slide}
-        />
-        <SideNav />
+        <GlobalContextWrapper>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Slide}
+          />
+          <SideNav />
 
-        <div className="overflow-y-auto flex-1 h-screen px-32 py-4">
-          <ErrorBoundary children={children} errorComponent={Error} />
-        </div>
+          <div className="overflow-y-auto flex-1 h-screen px-32 py-4">
+            <ErrorBoundary children={children} errorComponent={Error} />
+          </div>
+        </GlobalContextWrapper>
       </div>
     </div>
   );

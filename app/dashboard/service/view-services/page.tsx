@@ -15,15 +15,17 @@ const Service = async () => {
           const values = Object.values(item.spec?.selector);
 
           return (
-            <div key={item.metadata?.uid}>
-              <div className="bg-blue-500 w-full h-3 rounded-t-xl" />
+            <div key={item.metadata?.uid} className="w-full">
+              {/* <div className="bg-blue-500 w-full h-2 rounded-t-xl" /> */}
               <div
                 key={item.metadata?.uid}
-                className="p-5 rounded-b-xl border shadow-md space-y-4 w-full bg-white"
+                className="p-5 rounded-xl border shadow-md space-y-4 w-full bg-white"
               >
-                <div className="flex flex-col justify-start items-baseline">
-                  <p className="font-medium text-2xl">{item.metadata?.name}</p>
-                  <p className="mt-2 ">{item.spec?.type}</p>
+                <div className="flex flex-col justify-between items-start">
+                  <p className="font-semibold text-lg">{item.metadata?.name}</p>
+                  <p className="bg-gray-100 rounded-full px-4 py-2 text-sm mt-2">
+                    {item.spec?.type}
+                  </p>
                 </div>
 
                 <div>

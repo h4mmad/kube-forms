@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 const open_sans = Open_Sans({
   subsets: ["latin"],
@@ -21,7 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={open_sans.className}>
-        <div className="bg-slate-50">{children}</div>
+        <ClerkProvider>
+          <div className="bg-slate-50">{children}</div>
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { CreateDeploymentContext } from "./contexts";
-import { createDeploymentScehma } from "../schema";
+import { createDeploymentScehma } from "../utils/schema";
 import { ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";

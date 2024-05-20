@@ -6,7 +6,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { createContext } from "react";
-import { createDeploymentScehma, createServiceSchema } from "../schema";
+import { createDeploymentScehma, createServiceSchema } from "../utils/schema";
 import { z } from "zod";
 
 type ContextType = {
@@ -16,8 +16,6 @@ type ContextType = {
   formState: FormState<z.infer<typeof createDeploymentScehma>>;
   handleSubmit: UseFormHandleSubmit<z.infer<typeof createDeploymentScehma>>;
 };
-
-type DeploymentContextType = {};
 
 type ServiceContextType = {
   register: UseFormRegister<z.infer<typeof createServiceSchema>>;

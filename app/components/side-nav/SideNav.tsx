@@ -6,8 +6,12 @@ import { IoCodeWorking } from "react-icons/io5";
 import { LuServer } from "react-icons/lu";
 import ClusterCard from "./ClusterCard";
 import NavButton from "./NavButton";
+import { SignedIn, UserButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-export function SideNav() {
+export async function SideNav() {
+  const { userId } = auth();
+  const user = await currentUser();
   return (
     <nav className="flex flex-col p-4 border-r w-fit h-screen ">
       <Image alt="logo" src={Logo} width={150} height={150} />
@@ -43,6 +47,17 @@ export function SideNav() {
           />
         </li>
       </ul>
+      <div className="mt-auto">
+        <SignedIn>
+          <UserButton
+            appearance={{
+              elements: {
+                userButtonAvatarBox: "w-10 h-auto border border-black",
+              },
+            }}
+          />
+        </SignedIn>
+      </div>
     </nav>
   );
 }

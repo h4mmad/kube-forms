@@ -1,4 +1,4 @@
-import { getKubeConfig } from "../KubernetesClient";
+import { getKubeConfig } from "../utils/KubernetesClient";
 
 async function getClusterEndpoint() {
   try {

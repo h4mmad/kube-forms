@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { CreateServiceContext } from "./contexts";
-import { createServiceSchema } from "../schema";
+import { createServiceSchema } from "../utils/schema";
 import { ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
