@@ -25,21 +25,6 @@ export async function getKubeConfig() {
   }
 }
 
-// let kubeConfigContent: any = null;
-
-// export const setKubeConfig = (configContent: any) => {
-//   kubeConfigContent = configContent;
-//   console.log("config set");
-//   redirect("/dashboard/view-nodes");
-// };
-
-// export const getKubeClient = () => {
-//   const kc = new k8s.KubeConfig();
-//   kc.loadFromString(kubeConfigContent);
-
-//   return kc.makeApiClient(k8s.CoreV1Api);
-// };
-
 export async function getApiServerAddress() {
   // const kc = await getKubeConfig();
   const kc = await getKubeConfig();

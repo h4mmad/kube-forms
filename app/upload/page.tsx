@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uploadFileAction } from "../utils/actions";
-import Logo from "@/public/logo.svg";
+import WhiteLogo from "@/public/white-logo.svg";
 import Image from "next/image";
 const Page = () => {
   const [file, setFile] = useState<Blob | string>("");
@@ -16,24 +16,64 @@ const Page = () => {
 
     uploadFileAction(formData);
   };
+  const words = [
+    "YAML",
+    "CLI",
+    "kubectl",
+    "Hassle",
+    "Debugging",
+    "Frustration",
+  ];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [animation, setAnimation] = useState("animate-slideInFromLeft");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimation("animate-slideOutToRight");
+      setTimeout(() => {
+        setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+        setAnimation("animate-slideInFromLeft");
+      }, 500); // Match the duration of slideOut animation
+    }, 3000); // Change word every 2 seconds
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="flex flex-row w-full h-screen">
-      <div className="bg-black w-2/3 h-full flex flex-col justify-start items-start p-40 space-y-12">
-        <div className="">
-          <p className="text-8xl font-light text-gray-500">Step away from</p>
-          <p className="text-9xl font-extrabold text-white mt-4">YAML</p>
-        </div>
-      </div>
-      <div className=" w-1/3 flex flex-col p-10 items-center ">
-        <Image src={Logo} alt="logo" width={150} height={150} />
+      <div className="bg-blue-500 w-2/3 flex flex-col justify-start items-start p-10 h-screen">
+        <Image src={WhiteLogo} alt="logo" width={150} height={150} />
 
-        <p className="text-white text-3xl text-center">Upload kube config</p>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-4 border rounded-xl mt-12 h-screen bg-slate-100"
-        >
-          <input type="file" onChange={handleFileChange} />
-          <button type="submit">Upload</button>
+        <div className="mt-36">
+          <p className="text-6xl font-light text-white">Step away from</p>
+          <p
+            className={`text-9xl font-extrabold text-white mt-4 transition-all ${animation}`}
+          >
+            {words[currentWordIndex]}
+          </p>
+        </div>
+
+        <p className="text-white mt-auto">Made with ❤️ by Hammad</p>
+      </div>
+      <div className="bg-slate-100 w-1/3 flex flex-col">
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col  h-screen">
+            {/* <input
+              type="file"
+              onChange={handleFileChange}
+              className="border rounded-xl h-3/4 mt-4"
+            /> */}
+            <div className="border border-slate-300  h-full bg-slate-200 flex flex-col justify-center items-center">
+              <p className="text-slate-500 text-wrap text-center w-3/4">
+                Drag 'n' drop Kubernetes configuration file, or click to select
+              </p>
+            </div>
+            <button
+              type="submit"
+              className=" py-4 w-full bg-slate-300 text-slate-600 font-medium"
+            >
+              Upload config
+            </button>
+          </div>
         </form>
       </div>
     </div>
