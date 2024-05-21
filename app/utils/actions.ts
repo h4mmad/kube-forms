@@ -57,17 +57,22 @@ export const createServiceFormAction = async (
 };
 
 export async function uploadFileAction(formData: FormData) {
-  const file = formData.get("file") as File;
-  const uploadDir = path.join(process.cwd(), "/public/uploads/");
+  try {
+    const file = formData.get("file") as File;
+    const uploadDir = path.join(process.cwd(), "/public/uploads/");
 
-  await fs.access(uploadDir).catch(async () => {
-    await fs.mkdir(uploadDir, { recursive: true });
-  });
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = new Uint8Array(arrayBuffer);
+    await fs.access(uploadDir).catch(async () => {
+      await fs.mkdir(uploadDir, { recursive: true });
+    });
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = new Uint8Array(arrayBuffer);
 
-  const filePath = path.join(process.cwd(), "/public/uploads/", file.name);
-  await fs.writeFile(filePath, buffer);
+    const filePath = path.join(process.cwd(), "/public/uploads/", file.name);
+    await fs.writeFile(filePath, buffer);
 
-  revalidatePath("/");
+    revalidatePath("/");
+    return { message: "File uploaded successfully" };
+  } catch (error) {
+    return { message: error };
+  }
 }
