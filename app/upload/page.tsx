@@ -25,10 +25,7 @@ const Page = () => {
   return (
     <div className="flex flex-col bg-blue-500 p-10 items-center w-screen h-screen">
       <Image src={WhiteLogo} alt="logo" width={150} />
-      <div className="mt-32">
-        <h1 className="text-2xl text-white  text-center mb-8">
-          Upload config file
-        </h1>
+      <div className="mt-32 w-1/2">
         <UploadFileInput />
       </div>
     </div>
@@ -36,30 +33,70 @@ const Page = () => {
 };
 
 const UploadFileInput = () => {
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    // Do something with the files
-    const file = acceptedFiles[0];
+  const [selectedFile, setSelectedFile] = useState<File | null>();
+
+  const onDrop = useCallback(
+    async (acceptedFiles: File[]) => {
+      if (acceptedFiles.length > 0) {
+        const file: File = acceptedFiles[0];
+        setSelectedFile(file);
+      }
+    },
+    [selectedFile]
+  );
+
+  const handleUpload = async () => {
     const formData = new FormData();
-    formData.append("file", file);
+    if (selectedFile) formData.append("file", selectedFile);
+
     const { message } = await uploadFileAction(formData);
     console.log(message);
-  }, []);
+  };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
 
   return (
-    <div
-      {...getRootProps()}
-      className="p-4 rounded-xl border-dashed border border-white text-white flex flex-col items-center"
-    >
+    <div {...getRootProps()} className="w-full">
+      <h1 className="text-2xl text-white  text-center mb-8">
+        Upload config file
+      </h1>
       <input {...getInputProps()} />
 
-      <div className="flex flex-col justify-center items-center">
+      <div className="p-4 rounded-xl border-dashed border border-white text-white flex flex-col justify-center items-center w-full">
         <MdOutlineUploadFile size={56} />
-        <p className="text-center mt-4 w-1/2">
-          Drag 'n' drop some files here, or click to select files
-        </p>
+
+        {selectedFile ? (
+          <div className="text-center text-white">
+            <p>Selected file:</p>{" "}
+            <p className="font-semibold text-2xl">{selectedFile.name}</p>
+          </div>
+        ) : (
+          <p className="text-center mt-12 w-1/2">
+            Drag 'n' drop or click to select file
+          </p>
+        )}
       </div>
+      {selectedFile && (
+        <div className="flex flex-col justify-center items-center mt-4">
+          <button
+            onClick={() => {
+              setSelectedFile(null);
+            }}
+            className="border px-4 py-2 rounded-lg text-white w-fit"
+          >
+            Remove
+          </button>
+          <button
+            onClick={async () => await handleUpload()}
+            className="border w-full rounded-lg px-4 py-2 text-blue-500 bg-white font-semibold mt-12"
+          >
+            Upload
+          </button>
+        </div>
+      )}
     </div>
   );
 };

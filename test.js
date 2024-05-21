@@ -8,13 +8,11 @@ async function getClusterEndpoint() {
 
     // Get the cluster API server endpoint from the configuration
     const cluster = kc.getCurrentCluster();
+    console.log("Cluster Name:", cluster.name);
 
-    if (cluster) {
-      console.log("Cluster Name:", cluster.name);
-      console.log("Cluster API Server Endpoint:", cluster.server);
-    } else {
-      console.log("No cluster configuration found.");
-    }
+    const changeCluster = kc.setCurrentContext("microk8s");
+    const cluster2 = kc.getCurrentCluster();
+    console.log("Cluster Name:", cluster2.name);
   } catch (err) {
     console.error("Error fetching cluster endpoint:", err);
   }

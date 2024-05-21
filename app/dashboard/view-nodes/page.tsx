@@ -4,15 +4,10 @@ import InfoBox from "@/app/components/page-layout/InfoBox";
 import { PageHeading } from "@/app/components/page-layout/PageHeading";
 import getNodes from "@/app/kubernetes-actions/view-nodes";
 import { Suspense } from "react";
-import Image from "next/image";
-import Loader from "@/public/loader.svg";
 import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
 
 async function Nodes() {
   const data = await getNodes();
-  data.forEach((item, idx) => {
-    item.metadata?.uid;
-  });
 
   return (
     <div className="mt-4 flex flex-row space-x-10">

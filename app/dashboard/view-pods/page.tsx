@@ -29,7 +29,11 @@ async function Pods() {
               <label className="text-gray-500 text-sm">NODE NAME</label>
 
               <p className="">{item.spec?.nodeName}</p>
-              <p className=""></p>
+              <p className="">{item.status?.podIP}</p>
+              <p className="">{item.status?.hostIP}</p>
+              <p className="">{item.status?.reason}</p>
+              <p className="">{item.status?.qosClass}</p>
+              <p className="">{item.status?.resize}</p>
             </div>
           </div>
         );
@@ -40,7 +44,7 @@ async function Pods() {
 
 async function Page() {
   return (
-    <>
+    <div>
       <PageHeading text="Pods" />
 
       <InfoBox
@@ -53,7 +57,7 @@ async function Page() {
       <Suspense fallback={<div>Loading...</div>}>
         <Pods />
       </Suspense>
-    </>
+    </div>
   );
 }
 

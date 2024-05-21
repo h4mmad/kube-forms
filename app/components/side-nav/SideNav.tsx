@@ -4,7 +4,7 @@ import { LuContainer } from "react-icons/lu";
 import { FaNetworkWired } from "react-icons/fa";
 import { IoCodeWorking } from "react-icons/io5";
 import { LuServer } from "react-icons/lu";
-import ClusterCard from "./ClusterCard";
+import ClusterCard, { ContextSelector } from "./ClusterCard";
 import NavButton from "./NavButton";
 
 export async function SideNav() {
@@ -43,6 +43,9 @@ export async function SideNav() {
           />
         </li>
       </ul>
+      <div className="mt-auto">
+        <ContextSelector />
+      </div>
     </nav>
   );
 }

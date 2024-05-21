@@ -1,4 +1,4 @@
-import getClusterEndpoint from "@/app/kubernetes-actions/get-cluster";
+import getClusterEndpoint from "@/app/kubernetes-actions/get-current-cluster";
 
 export async function GET(request: Request) {
   const data = await getClusterEndpoint();

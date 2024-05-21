@@ -13,14 +13,7 @@ type NavButtonProps = {
 };
 
 function NavButton({ icon, text, href, parentRoute }: NavButtonProps) {
-  useEffect(() => {
-    if (localStorage.getItem("config")) {
-      const config = localStorage.getItem("config");
-      console.log("from localstorage and navbutton: ", config);
-    }
-  }, []);
   const currentPath = usePathname();
-  const [active, setActive] = useState<boolean>();
 
   return (
     <Link
@@ -28,9 +21,10 @@ function NavButton({ icon, text, href, parentRoute }: NavButtonProps) {
       className={clsx([
         "flex flex-row space-x-3 items-center",
         {
-          "font-semibold text-black":
-            currentPath.split("/").at(2) === href.split("/").at(2) &&
-            href === currentPath,
+          "font-semibold text-black": currentPath === href,
+        },
+        {
+          "text-gray-500": currentPath != href,
         },
       ])}
     >
