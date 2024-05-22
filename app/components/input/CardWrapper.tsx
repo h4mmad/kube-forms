@@ -18,7 +18,7 @@ const CardWrapper = ({
   actionButton,
 }: InfoCardWrapperProps) => {
   return (
-    <div className="p-4 shadow-md rounded-xl border w-full bg-white">
+    <div className="p-4 shadow-md rounded-xl border w-fit bg-white">
       <div className="flex flex-row justify-between items-center">
         <p className={clsx("block text-lg font-medium", headingTextColor)}>
           {heading}

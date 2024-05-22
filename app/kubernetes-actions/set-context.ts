@@ -22,6 +22,8 @@ async function setContext(formData: FormData) {
     const cluster2 = kc.getCurrentCluster();
     console.log("Cluster Name:", cluster2?.name);
 
+    revalidatePath("/dashboard/view-pods", "page");
+    revalidatePath("/dashboard/view-nodes", "page");
     revalidatePath("/dashboard", "layout");
 
     return { message: `Context switched to ${context} successfully` };

@@ -22,7 +22,7 @@ export async function SideNav() {
         </li>
         <li>
           <NavButton
-            href="/dashboard/view-pods"
+            href="/dashboard/view-pods/?namespace=default"
             icon={<LuContainer size={22} />}
             text="Pods"
           />

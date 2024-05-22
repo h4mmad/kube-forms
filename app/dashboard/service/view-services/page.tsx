@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+import NamespaceTabs from "@/app/components/input/NamespaceTabs";
 import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
 import { PageHeading } from "@/app/components/page-layout/PageHeading";
 import viewServices from "@/app/kubernetes-actions/view-services";
@@ -8,6 +10,7 @@ const Service = async () => {
 
   return (
     <div className="flex flex-col space-y-12">
+      <NamespaceTabs baseURL="/dashboard/service/view-services" />
       {data?.items.map((item, index) => {
         console.log(item.spec?.ports);
         if (item.spec?.selector) {
@@ -104,7 +107,6 @@ const Service = async () => {
 const Page = () => {
   return (
     <>
-      <PageHeading text="Services" />
       <ContentWrapper>
         <Suspense>
           <Service />

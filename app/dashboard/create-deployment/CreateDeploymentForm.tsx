@@ -44,34 +44,38 @@ const CreateDeploymentForm = () => {
     <div>
       <form onSubmit={handleSubmit(submitHandler)}>
         <ContentWrapper>
-          <DeploymentName />
+          <div className="space-y-9">
+            <DeploymentName />
 
-          <div className="flex flex-row justify-between space-x-12">
-            <NamespaceSelector
-              register={register("namespace")}
-              errorMessage={errors.namespace?.message}
-            />
-            <Replicas />
-          </div>
+            <div className="flex flex-row justify-between space-x-12">
+              <NamespaceSelector
+                register={register("namespace")}
+                errorMessage={errors.namespace?.message}
+              />
+              <Replicas />
+            </div>
 
-          <KeyValueInput
-            Context={CreateDeploymentContext}
-            heading="Selector"
-            fieldArrayName="selector"
-            description="Via a label selector, when a deployment's selector matches the labels of a Pod, the Pod becomes selected by the deployment."
-          />
-
-          <br />
-
-          <p className="text-3xl font-semibold text-black">Pod specification</p>
-          <div className="flex flex-col space-y-12">
             <KeyValueInput
               Context={CreateDeploymentContext}
-              fieldArrayName="podLabels"
-              heading="Pod labels"
-              description="Labels are key/value pairs that are attached to objects such as Pods. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system."
+              heading="Selector"
+              fieldArrayName="selector"
+              description="Via a label selector, when a deployment's selector matches the labels of a Pod, the Pod becomes selected by the deployment."
             />
-            <Container />
+
+            <br />
+
+            <p className="text-3xl font-semibold text-black">
+              Pod specification
+            </p>
+            <div className="flex flex-col space-y-12">
+              <KeyValueInput
+                Context={CreateDeploymentContext}
+                fieldArrayName="podLabels"
+                heading="Pod labels"
+                description="Labels are key/value pairs that are attached to objects such as Pods. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system."
+              />
+              <Container />
+            </div>
           </div>
         </ContentWrapper>
         <button

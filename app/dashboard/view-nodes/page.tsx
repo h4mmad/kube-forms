@@ -5,53 +5,75 @@ import { PageHeading } from "@/app/components/page-layout/PageHeading";
 import getNodes from "@/app/kubernetes-actions/view-nodes";
 import { Suspense } from "react";
 import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
+import { V1Node } from "@kubernetes/client-node";
 
 async function Nodes() {
-  const data = await getNodes();
+  const data: V1Node[] = await getNodes();
 
   return (
-    <div className="mt-4 flex flex-row space-x-10">
-      {data?.map((item: any, index: any) => {
+    <div className="mt-4 flex flex-row space-x-10 items-start">
+      {data?.map((item) => {
         return (
           <div
             key={item.metadata?.uid}
-            className="p-4 rounded-xl border shadow-md space-y-6 w-fit bg-white"
+            className="p-4 rounded-xl border shadow-md space-y-6 w-full bg-white"
           >
-            <p className="text-xl font-semibold">{item?.metadata?.name}</p>
-
-            <div className="flex flex-row space-x-6">
-              <div>
-                <p className="text-gray-500 text-sm">OS</p>
-                <p className="font-medium">
-                  {item?.status?.nodeInfo?.operatingSystem}
+            <div className="">
+              <p className="text-xl font-semibold">{item?.metadata?.name}</p>
+              {item.status?.addresses && (
+                <p className="text-gray-500 text-sm">
+                  {item.status?.addresses[0].address}
                 </p>
+              )}
+            </div>
+            <div className="flex flex-row justify-between">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-gray-500 text-sm">OS IMAGE</p>
+                  <p className="font-medium">
+                    {item?.status?.nodeInfo?.osImage}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-sm">CPU</p>
+                  <p className="font-medium">{item?.status?.capacity?.cpu}</p>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-sm">MAX MEMORY</p>
+                  <p className="font-medium">
+                    {item?.status?.capacity?.memory}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-sm">PODS </p>
+                  <p className="font-medium">{item?.status?.capacity?.pods}</p>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 text-sm">KUBELET VERSION</p>
+                  <p className="font-medium">
+                    {item?.status?.nodeInfo?.kubeletVersion}
+                  </p>
+                </div>
               </div>
+
               <div>
-                <p className="text-gray-500 text-sm">OS IMAGE</p>
-                <p className="font-medium">{item?.status?.nodeInfo?.osImage}</p>
+                <p className="text-gray-500 text-sm">STATUS</p>
+                <div className="p-4 border rounded-lg space-y-4 shadow-md">
+                  {item.status?.conditions?.map((item, idx) => {
+                    return (
+                      <div key={idx}>
+                        <p className="text-medium">{item.type}</p>
+                        <p className="text-gray-500 text-sm">{item.status}</p>
+                        <p className="text-gray-500 text-sm"> {item.message}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-
-            <div>
-              <p className="text-gray-500 text-sm">CPU CAPACITY</p>
-              <p className="font-medium">{item?.status?.capacity?.cpu}</p>
-            </div>
-
-            <div>
-              <p className="text-gray-500 text-sm">MAX MEMORY</p>
-              <p className="font-medium">{item?.status?.capacity?.memory}</p>
-            </div>
-
-            <div>
-              <p className="text-gray-500 text-sm">PODS CAPACITY</p>
-              <p className="font-medium">{item?.status?.capacity?.pods}</p>
-            </div>
-
-            <div>
-              <p className="text-gray-500 text-sm">KUBELET VERSION</p>
-              <p className="font-medium">
-                {item?.status?.nodeInfo?.kubeletVersion}
-              </p>
             </div>
           </div>
         );
@@ -65,7 +87,6 @@ async function Page() {
     <div>
       <PageHeading text="Nodes" />
       <InfoBox
-        iconSize={56}
         text="Kubernetes runs your workload by placing containers into Pods to run on
         Nodes. A node may be a virtual or physical machine, depending on the
         cluster. Each node is managed by the control plane and contains the

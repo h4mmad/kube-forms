@@ -9,7 +9,6 @@ function CreateDeploymentPage() {
     <CreateDeploymentContextWrapper>
       <PageHeading text="Deployment" />
       <InfoBox
-        iconSize={56}
         text="A Deployment provides declarative updates for Pods. You describe a
           desired state in a Deployment, and the Deployment Controller changes
           the actual state to the desired state at a controlled rate."
