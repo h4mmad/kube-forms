@@ -5,8 +5,8 @@ import createDeployment from "../kubernetes-actions/create-deployment";
 import { Helper } from "./lib";
 import createService from "../kubernetes-actions/create-service";
 import fs from "node:fs/promises";
-import { revalidatePath } from "next/cache";
 import path from "node:path";
+import { redirect } from "next/navigation";
 
 export const formAction = async (
   formData: z.infer<typeof createDeploymentScehma>
@@ -60,19 +60,42 @@ export async function uploadFileAction(formData: FormData) {
   try {
     const file = formData.get("file") as File;
     const uploadDir = path.join(process.cwd(), "/public/uploads/");
+    const fileName = file.name;
 
-    await fs.access(uploadDir).catch(async () => {
-      await fs.mkdir(uploadDir, { recursive: true });
-    });
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = new Uint8Array(arrayBuffer);
+    // Check if the uploaded file is a kubeconfig file
+    const isKubeconfig = fileName.toLowerCase() === "kubeconfig";
+    if (!isKubeconfig) {
+      return { success: false, message: "Only kubeconfig files are allowed" };
+    }
 
-    const filePath = path.join(process.cwd(), "/public/uploads/", file.name);
-    await fs.writeFile(filePath, buffer);
+    // If it's a kubeconfig file, replace any existing kubeconfig file
+    if (isKubeconfig) {
+      // Check if kubeconfig file already exists
+      const existingKubeconfigPath = path.join(uploadDir, fileName);
+      const kubeconfigExists = await fs
+        .access(existingKubeconfigPath)
+        .then(() => true)
+        .catch(() => false);
 
-    revalidatePath("/");
-    return { message: "File uploaded successfully" };
+      // If kubeconfig file exists, delete it
+      if (kubeconfigExists) {
+        await fs.unlink(existingKubeconfigPath);
+      }
+    }
+
+    // Ensure the upload directory exists
+    await fs.mkdir(uploadDir, { recursive: true });
+
+    // Read file contents
+    const buffer = await file.arrayBuffer();
+
+    // Write file to the uploads directory
+    const filePath = path.join(uploadDir, fileName);
+    await fs.writeFile(filePath, Buffer.from(buffer));
+
+    return { success: true, message: "File uploaded successfully" };
   } catch (error) {
-    return { message: error };
+    console.error("Error uploading file:", error);
+    return { success: false, message: "Error uploading file" };
   }
 }

@@ -4,7 +4,9 @@ import { uploadFileAction } from "../utils/actions";
 import Image from "next/image";
 import { MdOutlineUploadFile } from "react-icons/md";
 import { useDropzone } from "react-dropzone";
-import WhiteLogo from "@/public/white-logo.svg";
+import Logo from "@/public/logo.svg";
+import { useRouter } from "next/navigation";
+import { Slide, ToastContainer, toast } from "react-toastify";
 
 const Page = () => {
   const words = ["YAML", "CLI", "kubectl", "Hassle"];
@@ -23,9 +25,9 @@ const Page = () => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="flex flex-col bg-blue-500 p-10 items-center w-screen h-screen">
-      <Image src={WhiteLogo} alt="logo" width={150} />
-      <div className="mt-32 w-1/2">
+    <div className="flex flex-col bg-slate-50 p-10 items-center w-screen h-screen">
+      <Image src={Logo} alt="logo" width={150} />
+      <div className="mt-20 w-1/3">
         <UploadFileInput />
       </div>
     </div>
@@ -34,6 +36,7 @@ const Page = () => {
 
 const UploadFileInput = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>();
+  const router = useRouter();
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
@@ -49,54 +52,94 @@ const UploadFileInput = () => {
     const formData = new FormData();
     if (selectedFile) formData.append("file", selectedFile);
 
-    const { message } = await uploadFileAction(formData);
-    console.log(message);
+    const { message, success } = await uploadFileAction(formData);
+    setSelectedFile(null);
+    if (success) {
+      router.push("/dashboard/deployment/create-deployment");
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Slide,
+      });
+    } else {
+      toast.error(`Error: ${message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        transition: Slide,
+      });
+    }
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false,
   });
 
   return (
-    <div {...getRootProps()} className="w-full">
-      <h1 className="text-2xl text-white  text-center mb-8">
-        Upload config file
-      </h1>
-      <input {...getInputProps()} />
+    <div>
+      <div className="h-2 rounded-t-xl bg-blue-500" />
+      <div className="p-10 bg-white shadow-md rounded-b-xl border">
+        <ToastContainer />
+        <div {...getRootProps()} className="w-full cursor-pointer">
+          {!selectedFile && (
+            <h1 className="text-2xl font-semibold  text-center mb-8">
+              Upload kubeconfig file
+            </h1>
+          )}
+          <input {...getInputProps()} />
 
-      <div className="p-4 rounded-xl border-dashed border border-white text-white flex flex-col justify-center items-center w-full">
-        <MdOutlineUploadFile size={56} />
+          <div className="p-6 rounded-xl border-dashed  border-4 border-slate-300 h-60  flex flex-col justify-center items-center w-full">
+            <MdOutlineUploadFile size={56} className="text-blue-500" />
 
-        {selectedFile ? (
-          <div className="text-center text-white">
-            <p>Selected file:</p>{" "}
-            <p className="font-semibold text-2xl">{selectedFile.name}</p>
+            {selectedFile ? (
+              <div className="text-center">
+                <p>Selected file:</p>{" "}
+                <p className="font-semibold text-2xl">{selectedFile.name}</p>
+              </div>
+            ) : (
+              <p className="text-center mt-12 w-1/2">
+                Drag 'n' drop or click to select file
+              </p>
+            )}
           </div>
-        ) : (
-          <p className="text-center mt-12 w-1/2">
-            Drag 'n' drop or click to select file
-          </p>
-        )}
-      </div>
-      {selectedFile && (
-        <div className="flex flex-col justify-center items-center mt-4">
-          <button
-            onClick={() => {
-              setSelectedFile(null);
-            }}
-            className="border px-4 py-2 rounded-lg text-white w-fit"
-          >
-            Remove
-          </button>
-          <button
-            onClick={async () => await handleUpload()}
-            className="border w-full rounded-lg px-4 py-2 text-blue-500 bg-white font-semibold mt-12"
-          >
-            Upload
-          </button>
+          {selectedFile && (
+            <div className="flex flex-col justify-center items-center mt-4">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedFile(null);
+                }}
+                className="border  text-red-500 px-4 py-2 rounded-lg  w-fit"
+              >
+                Remove
+              </button>
+              <button
+                type="button"
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  await handleUpload();
+                }}
+                className="border w-full rounded-lg px-4 py-2 bg-blue-500 text-white font-semibold mt-12"
+              >
+                Upload
+              </button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

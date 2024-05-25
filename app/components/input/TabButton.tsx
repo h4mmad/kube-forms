@@ -3,7 +3,13 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-function TabButton({ namespace }: { namespace: string | undefined }) {
+function TabButton({
+  namespace,
+  baseURL,
+}: {
+  namespace: string | undefined;
+  baseURL: string;
+}) {
   const searchParams = useSearchParams();
 
   return (
@@ -16,7 +22,7 @@ function TabButton({ namespace }: { namespace: string | undefined }) {
           "": namespace != searchParams.get("namespace"),
         }
       )}
-      href={`/dashboard/view-pods?namespace=${namespace}`}
+      href={`${baseURL}?namespace=${namespace}`}
     >
       {namespace}
     </Link>

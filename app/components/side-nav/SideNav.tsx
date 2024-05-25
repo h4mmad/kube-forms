@@ -17,21 +17,21 @@ export async function SideNav() {
           <NavButton
             href="/dashboard/view-nodes"
             icon={<LuServer size={22} />}
-            text="Cluster"
+            text="Node"
           />
         </li>
         <li>
           <NavButton
             href="/dashboard/view-pods/?namespace=default"
             icon={<LuContainer size={22} />}
-            text="Pods"
+            text="Pod"
           />
         </li>
         <li>
           <NavButton
-            href="/dashboard/create-deployment"
+            href="/dashboard/deployment/create-deployment"
             icon={<IoCodeWorking size={22} />}
-            text="Workloads"
+            text="Deployment"
           />
         </li>
         <li>
@@ -39,7 +39,7 @@ export async function SideNav() {
             href="/dashboard/service/create-service"
             parentRoute="/dashboard/service/"
             icon={<FaNetworkWired size={22} />}
-            text="Networking"
+            text="Service"
           />
         </li>
       </ul>

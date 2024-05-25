@@ -5,18 +5,17 @@ import { CreateServiceContext } from "@/app/context/contexts";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useContext, useState } from "react";
-import KeyValueInput from "../../create-deployment/KeyValueInput";
+import KeyValueInput from "../../deployment/create-deployment/KeyValueInput";
 import { SubmitHandler, useFieldArray } from "react-hook-form";
 import { createServiceSchema } from "@/app/utils/schema";
 import { z } from "zod";
 import Image from "next/image";
 import ClusterIP from "@/public/ClusterIP.drawio.svg";
 import NodePort from "@/public/NodePort.drawio.svg";
-import NamespaceSelector from "../../create-deployment/NamespaceSelector";
+import NamespaceSelector from "../../deployment/create-deployment/NamespaceSelector";
 import { createServiceFormAction } from "@/app/utils/actions";
 import { Helper } from "@/app/utils/lib";
 import { toast } from "react-toastify";
-import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
 import InputErrorMessage from "@/app/components/input/InputErrorMessage";
 import { MdDelete } from "react-icons/md";
 
@@ -66,7 +65,7 @@ const CreateServiceForm = () => {
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
-      <ContentWrapper>
+      <div className="space-y-9">
         <CardWrapper
           heading="Name"
           description="A service name should be unique within a namespace"
@@ -91,11 +90,19 @@ const CreateServiceForm = () => {
         />
         <CardWrapper
           heading="Type"
-          description="For some parts of your application (for example, frontends) you may want to expose a Service onto an external IP address, one that's accessible from outside of your cluster. Kubernetes Service types allow you to specify what kind of Service you want."
+          description={
+            <>
+              <p>
+                For some parts of your application you may want to expose a
+                Service to an external IP address, which is accessible from
+                outside of your cluster.
+              </p>
+            </>
+          }
         >
           <select
             {...register("type")}
-            className="p-2 w-full rounded-lg bg-slate-50 border"
+            className="p-2 w-fit rounded-lg bg-blue-500 text-white border mt-2 font-medium"
             defaultValue={options[0].value}
             onChange={(e: any) => setIndex(e.target.selectedIndex)}
           >
@@ -103,17 +110,17 @@ const CreateServiceForm = () => {
             <option value={options[1].value}>{options[1].label}</option>
           </select>
 
-          <div className="flex space-x-4 flex-row border rounded-xl p-6 mt-6 bg-white">
+          <div className="flex space-x-7 flex-row border rounded-xl p-6 mt-6 bg-white shadow-md">
             <Image
               alt="logo"
               src={options[index].src}
-              width={350}
-              height={350}
+              width={400}
+              height={400}
             />
 
             <div>
               <p className="text-lg font-semibold">{options[index].label}</p>
-              <p className="mt-2">{options[index].info}</p>
+              <p className="mt-2 text-gray-600">{options[index].info}</p>
             </div>
           </div>
           <InputErrorMessage message={errors.type?.message} />
@@ -121,6 +128,17 @@ const CreateServiceForm = () => {
 
         <CardWrapper
           heading="Ports"
+          description={
+            <>
+              <p>Target port is used to target the port exposed by the pod.</p>
+              <p>Protocol can either be TCP or UDP.</p>
+              <p>
+                When using NodePort type, the cluster will automatically assign
+                an available port, view services to see which port has been
+                assigned
+              </p>
+            </>
+          }
           actionButton={
             <button
               type="button"
@@ -177,10 +195,10 @@ const CreateServiceForm = () => {
           })}
           <InputErrorMessage message={errors.ports?.message} />
         </CardWrapper>
-      </ContentWrapper>
+      </div>
       <button
         type="submit"
-        className="px-4 py-2 mt-10 rounded-full hover:bg-[#413839] bg-black border border-black text-white font-semibold ml-auto w-fit"
+        className="flex-grow  px-4 py-2 mt-10 rounded-full hover:bg-[#413839] bg-black border border-black text-white font-semibold mx-auto w-fit"
       >
         Create service
       </button>

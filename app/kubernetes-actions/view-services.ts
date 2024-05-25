@@ -1,13 +1,13 @@
 import { getCoreV1Client } from "../utils/KubernetesClient";
 
-async function viewServices() {
+async function viewNamespacedService(namespace: string) {
   try {
     const response = await (
       await getCoreV1Client()
-    ).listServiceForAllNamespaces();
+    ).listNamespacedService(namespace);
 
     const services = response.body;
-    console.log("Services:", services.items[0].spec?.selector);
+
     return services;
   } catch (error) {
     console.error("Error fetching services:", error);
@@ -15,6 +15,4 @@ async function viewServices() {
   }
 }
 
-viewServices();
-
-export default viewServices;
+export default viewNamespacedService;

@@ -1,28 +1,27 @@
 export const dynamic = "force-dynamic";
 import NamespaceTabs from "@/app/components/input/NamespaceTabs";
-import ContentWrapper from "@/app/components/page-layout/ContentWrapper";
-import { PageHeading } from "@/app/components/page-layout/PageHeading";
-import viewServices from "@/app/kubernetes-actions/view-services";
+
+import viewNamespacedService from "@/app/kubernetes-actions/view-services";
+
 import { Suspense } from "react";
 
-const Service = async () => {
-  const data = await viewServices();
+const Service = async ({ namespace }: { namespace: string }) => {
+  const data = await viewNamespacedService(namespace);
 
   return (
-    <div className="flex flex-col space-y-12">
+    <div className="flex flex-col space-y-16">
       <NamespaceTabs baseURL="/dashboard/service/view-services" />
-      {data?.items.map((item, index) => {
-        console.log(item.spec?.ports);
+      {data?.items.map((item) => {
         if (item.spec?.selector) {
           const keys = Object.keys(item.spec?.selector);
           const values = Object.values(item.spec?.selector);
 
           return (
             <div key={item.metadata?.uid} className="w-full">
-              {/* <div className="bg-blue-500 w-full h-2 rounded-t-xl" /> */}
+              <div className="bg-gradient-to-r from-blue-500 via-sky-500 to-emerald-500 w-full h-2 rounded-t-xl shadow-md" />
               <div
                 key={item.metadata?.uid}
-                className="p-5 rounded-xl border shadow-md space-y-4 w-full bg-white"
+                className="p-5 rounded-b-xl border shadow-md space-y-4 w-full bg-white"
               >
                 <div className="flex flex-col justify-between items-start">
                   <p className="font-semibold text-lg">{item.metadata?.name}</p>
@@ -68,33 +67,27 @@ const Service = async () => {
                   })}
                 </div>
 
-                <div className="rounded-xl p-4 border flex flex-row justify-between">
-                  <div>
-                    <label className="text-gray-500 text-sm">NAMESPACE</label>
-                    <p className="mt-2 font-medium">
-                      {item.metadata?.namespace}
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="text-gray-500 text-sm">SELECTOR</label>
-                    <div className="flex flex-row space-x-5 mt-2">
-                      {item.spec?.selector &&
-                        Object.keys(item.spec?.selector).map((key, index) => {
-                          return (
-                            <p
-                              key={index}
-                              className="px-4 py-2 border w-fit rounded-full font-medium"
-                            >
-                              {keys[index]} : {values[index]}
-                            </p>
-                          );
-                        })}
-                    </div>
-                  </div>
+                <div>
+                  <label className="text-gray-500 text-sm">NAMESPACE</label>
+                  <p className="mt-2 font-medium">{item.metadata?.namespace}</p>
                 </div>
 
-                {/* <p>{item.spec?.clusterIP}</p> */}
+                <div>
+                  <label className="text-gray-500 text-sm">SELECTOR</label>
+                  <div className="flex flex-row flex-wrap mt-2">
+                    {item.spec?.selector &&
+                      Object.keys(item.spec?.selector).map((key, index) => {
+                        return (
+                          <p
+                            key={index}
+                            className="px-4 py-2 border w-fit rounded-full font-medium mr-2 mt-2"
+                          >
+                            {keys[index]} : {values[index]}
+                          </p>
+                        );
+                      })}
+                  </div>
+                </div>
               </div>
             </div>
           );
@@ -104,14 +97,12 @@ const Service = async () => {
   );
 };
 
-const Page = () => {
+const Page = ({ searchParams }: { searchParams: any }) => {
   return (
     <>
-      <ContentWrapper>
-        <Suspense>
-          <Service />
-        </Suspense>
-      </ContentWrapper>
+      <Suspense>
+        <Service namespace={searchParams.namespace} />
+      </Suspense>
     </>
   );
 };

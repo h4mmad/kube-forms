@@ -3,7 +3,7 @@ import clsx from "clsx";
 type InfoCardWrapperProps = {
   children: React.ReactNode;
   heading: string;
-  description?: string;
+  description: React.ReactNode;
   headingTextColor?: string;
   descriptionTextColor?: string;
   actionButton?: any;
@@ -13,12 +13,12 @@ const CardWrapper = ({
   children,
   heading,
   description,
-  descriptionTextColor = "text-gray-600",
+  descriptionTextColor = "text-gray-500",
   headingTextColor = "text-black",
   actionButton,
 }: InfoCardWrapperProps) => {
   return (
-    <div className="p-4 shadow-md rounded-xl border w-fit bg-white">
+    <div className="p-4 rounded-xl border bg-white shadow-md w-fit">
       <div className="flex flex-row justify-between items-center">
         <p className={clsx("block text-lg font-medium", headingTextColor)}>
           {heading}
@@ -26,9 +26,9 @@ const CardWrapper = ({
         {actionButton}
       </div>
 
-      <p className={clsx("text-sm mt-2 mb-2", descriptionTextColor)}>
+      <div className={clsx("text-sm mt-2 mb-2", descriptionTextColor)}>
         {description}
-      </p>
+      </div>
       {children}
     </div>
   );

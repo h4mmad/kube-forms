@@ -13,6 +13,8 @@
     "@hookform/resolvers": "^3.3.4",
     "@kubernetes/client-node": "^0.20.0",
     "@next/env": "^14.2.3",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0",
     "axios": "^1.6.8",
     "clsx": "^2.1.0",
     "multer": "^1.4.5-lts.1",
@@ -27,6 +29,9 @@
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.26.3",
     "swr": "^2.2.5",
+    "ws": "^8.17.0",
+    "xterm": "^5.3.0",
+    "xterm-addon-fit": "^0.8.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

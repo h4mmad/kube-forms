@@ -15,13 +15,10 @@ export async function getKubeConfig() {
 
     kc.loadFromFile("public/uploads/kubeconfig");
 
-    console.log("Loaded from file");
-    // pingKubernetesApiServer(kc);
+    console.log(`Loaded from ${filePath}`);
     return kc;
   } catch (err) {
     redirect("/upload");
-    console.error("Error loading kube config file:", err);
-    throw err;
   }
 }
 

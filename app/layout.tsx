@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
-
+import "react-toastify/dist/ReactToastify.css";
 const open_sans = Open_Sans({
   subsets: ["latin"],
   style: "normal",
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={open_sans.className}>
-        <div className="bg-slate-50">{children}</div>
+        <div className="bg-white-50">{children}</div>
       </body>
     </html>
   );

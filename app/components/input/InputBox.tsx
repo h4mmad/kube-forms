@@ -16,9 +16,12 @@ function InputBox({ placeholder, errorMessage, type, register, label }: props) {
         {...register}
         type={type}
         placeholder={placeholder}
-        className={clsx("p-2 font-medium rounded-lg border bg-slate-50", {
-          "border-red-500 bg-red-200": errorMessage,
-        })}
+        className={clsx(
+          "p-2 font-medium rounded-lg border bg-slate-100 w-full",
+          {
+            "border-red-500 bg-red-200": errorMessage,
+          }
+        )}
       />
 
       <InputErrorMessage message={errorMessage} />
