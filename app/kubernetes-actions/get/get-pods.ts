@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { getCoreV1Client } from "../utils/KubernetesClient";
+import { getCoreV1Client } from "../../utils/KubernetesClient";
 
 async function getNamespacedPod(namespace: string = "default") {
   try {

@@ -1,5 +1,5 @@
 import { Context } from "@kubernetes/client-node";
-import { getKubeConfig } from "../utils/KubernetesClient";
+import { getKubeConfig } from "../../utils/KubernetesClient";
 
 async function getContexts() {
   try {

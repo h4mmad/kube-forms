@@ -1,12 +1,11 @@
 "use server";
 import { z } from "zod";
 import { createDeploymentScehma, createServiceSchema } from "./schema";
-import createDeployment from "../kubernetes-actions/create-deployment";
+import createDeployment from "../kubernetes-actions/create/create-deployment";
 import { Helper } from "./lib";
-import createService from "../kubernetes-actions/create-service";
+import createService from "../kubernetes-actions/create/create-service";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { redirect } from "next/navigation";
 
 export const formAction = async (
   formData: z.infer<typeof createDeploymentScehma>

@@ -1,7 +1,7 @@
 "use client";
 import clsx from "clsx";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 function TabButton({
   namespace,
@@ -14,14 +14,11 @@ function TabButton({
 
   return (
     <Link
-      className={clsx(
-        "px-4 py-2 bg-slate-100 border rounded-full text-slate-600",
-        {
-          "font-semibold shadow-sm":
-            namespace === searchParams.get("namespace"),
-          "": namespace != searchParams.get("namespace"),
-        }
-      )}
+      className={clsx("px-4 py-2 text-slate-500 border rounded-full text-sm", {
+        "font-semibold shadow-sm bg-slate-100   text-slate-600":
+          namespace === searchParams.get("namespace"),
+        "": namespace != searchParams.get("namespace"),
+      })}
       href={`${baseURL}?namespace=${namespace}`}
     >
       {namespace}

@@ -52,7 +52,7 @@ const KeyValueInput = ({
           fields.map((item, index) => {
             return (
               <div
-                className="flex flex-row justify-between items-center space-x-4 mt-2"
+                className="flex flex-row  items-center space-x-4 mt-2"
                 key={item.id}
               >
                 <InputBox

@@ -1,8 +1,11 @@
 "use server";
-import getNamespacedPod from "@/app/kubernetes-actions/view-pods";
+import KeyValueDisplay from "@/app/components/resource-card/KeyValueDisplay";
+import LabelValueDisplay from "@/app/components/resource-card/LabelValueDisplay";
+import ResourceCardWrapper from "@/app/components/resource-card/ResourceCardWrapper";
+import StatusDisplay from "@/app/components/resource-card/StatusDisplay";
+import getNamespacedPod from "@/app/kubernetes-actions/get/get-pods";
 import { V1Pod } from "@kubernetes/client-node";
-import { FaCheck } from "react-icons/fa";
-import { FaXmark } from "react-icons/fa6";
+
 async function Pods({ namespace }: { namespace: string }) {
   const pods = await getNamespacedPod(namespace);
 
@@ -10,57 +13,39 @@ async function Pods({ namespace }: { namespace: string }) {
     <div className="flex flex-col space-y-14 mt-8">
       {pods.items.map((item: V1Pod) => {
         return (
-          <div key={item?.metadata?.uid}>
-            <div className="bg-gradient-to-r from-blue-500 via-sky-500 to-emerald-500 w-full h-2 rounded-t-xl shadow-md" />
-            <div className="p-4 rounded-b-xl border shadow-md w-full bg-white ">
-              <p className="font-semibold text-lg">{item?.metadata?.name}</p>
-              <div className="flex flex-row justify-between items-start mt-6">
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-gray-500 text-sm">NAMESPACE</label>
-                    <p className="">{item.metadata?.namespace}</p>
-                  </div>
-
-                  <div>
-                    <label className="text-gray-500 text-sm">NODE NAME</label>
-
-                    <p className="">{item.spec?.nodeName}</p>
-                  </div>
-
-                  <div>
-                    <label className="text-gray-500 text-sm">POD IP</label>
-                    <p className="">{item.status?.podIP}</p>
-                  </div>
-
-                  <div>
-                    <label className="text-gray-500 text-sm">HOST IP</label>
-                    <p className="">{item.status?.hostIP}</p>
-                  </div>
-                </div>
-                <div>
-                  <label className="text-gray-500 text-sm">STATUS</label>
-                  <div className="p-4 rounded-lg border space-y-4">
-                    {item.status?.conditions &&
-                      item.status?.conditions.map((condition, idx) => {
-                        return (
-                          <div
-                            key={idx}
-                            className="flex flex-row space-x-3 items-center"
-                          >
-                            <p>{condition.type}</p>
-                            {condition.status === "True" ? (
-                              <FaCheck className="text-green-500 text-xl" />
-                            ) : (
-                              <FaXmark className="text-red-500 text-xl" />
-                            )}
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
+          <ResourceCardWrapper
+            title={item?.metadata?.name}
+            key={item?.metadata?.uid}
+          >
+            <div className="flex flex-row justify-between items-start">
+              <div className="space-y-4">
+                <LabelValueDisplay
+                  title="NAMESPACE"
+                  value={item.metadata?.namespace}
+                />
+                <LabelValueDisplay
+                  title="NODE NAME"
+                  value={item.spec?.nodeName}
+                />
+                <LabelValueDisplay title="POD IP" value={item.status?.podIP} />
+                <LabelValueDisplay
+                  title="HOST IP"
+                  value={item.status?.hostIP}
+                />
               </div>
+
+              <StatusDisplay
+                statusArray={item.status?.conditions}
+                title="STATUS"
+              />
             </div>
-          </div>
+            <section className="mt-4">
+              <KeyValueDisplay
+                objectArray={item.metadata?.labels}
+                title="LABELS"
+              />
+            </section>
+          </ResourceCardWrapper>
         );
       })}
     </div>

@@ -14,15 +14,13 @@ export default function RootLayout({
       <div className="flex flex-row space-x-16 ">
         <NavButton
           href="/dashboard/service/create-service"
-          text="Create"
-          parentRoute="/dashboard/service"
+          title="Create"
           icon={<IoCreateOutline size={22} />}
         />
         <NavButton
           href="/dashboard/service/view-services?namespace=default"
-          text="View"
+          title="View"
           icon={<IoEyeOutline size={22} />}
-          parentRoute="/dashboard/service"
         />
       </div>
       <hr className="mb-8 mt-3" />

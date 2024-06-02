@@ -1,6 +1,6 @@
 "use server";
-import getContexts from "@/app/kubernetes-actions/get-contexts";
-import getCurrentCluster from "@/app/kubernetes-actions/get-current-cluster";
+import getContexts from "@/app/kubernetes-actions/get/get-contexts";
+import getCurrentCluster from "@/app/kubernetes-actions/get/get-current-cluster";
 import setContext from "@/app/kubernetes-actions/set-context";
 import { Suspense } from "react";
 

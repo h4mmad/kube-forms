@@ -1,5 +1,5 @@
 "use server";
-import { getAppsV1ApiClient } from "../utils/KubernetesClient";
+import { getAppsV1ApiClient } from "../../utils/KubernetesClient";
 
 export async function getDeployment(namespace: string = "default") {
   try {

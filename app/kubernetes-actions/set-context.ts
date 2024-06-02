@@ -1,7 +1,7 @@
 "use server";
 import fs from "fs";
 import { getKubeConfig } from "../utils/KubernetesClient";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 async function setContext(formData: FormData) {
   try {

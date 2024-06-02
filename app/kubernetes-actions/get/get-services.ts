@@ -1,4 +1,4 @@
-import { getCoreV1Client } from "../utils/KubernetesClient";
+import { getCoreV1Client } from "../../utils/KubernetesClient";
 
 async function viewNamespacedService(namespace: string) {
   try {

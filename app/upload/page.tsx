@@ -9,21 +9,6 @@ import { useRouter } from "next/navigation";
 import { Slide, ToastContainer, toast } from "react-toastify";
 
 const Page = () => {
-  const words = ["YAML", "CLI", "kubectl", "Hassle"];
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [animation, setAnimation] = useState("animate-slideInFromLeft");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimation("animate-slideOutToRight");
-      setTimeout(() => {
-        setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
-        setAnimation("animate-slideInFromLeft");
-      }, 500); // Match the duration of slideOut animation
-    }, 5000); // Change word every 2 seconds
-
-    return () => clearInterval(interval);
-  }, []);
   return (
     <div className="flex flex-col bg-slate-50 p-10 items-center w-screen h-screen">
       <Image src={Logo} alt="logo" width={150} />

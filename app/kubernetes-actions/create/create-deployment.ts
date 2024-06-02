@@ -1,8 +1,8 @@
 "use server";
 import { z } from "zod";
-import { createDeploymentScehma } from "../utils/schema";
-import { Helper } from "../utils/lib";
-import { getAppsV1ApiClient } from "../utils/KubernetesClient";
+import { createDeploymentScehma } from "../../utils/schema";
+import { Helper } from "../../utils/lib";
+import { getAppsV1ApiClient } from "../../utils/KubernetesClient";
 
 async function createDeployment(
   deploymentData: z.infer<typeof createDeploymentScehma>

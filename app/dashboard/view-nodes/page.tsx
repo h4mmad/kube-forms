@@ -2,9 +2,10 @@ export const dynamic = "force-dynamic";
 
 import InfoBox from "@/app/components/page-layout/InfoBox";
 import { PageHeading } from "@/app/components/page-layout/PageHeading";
-import getNodes from "@/app/kubernetes-actions/view-nodes";
+import getNodes from "@/app/kubernetes-actions/get/get-nodes";
 import { Suspense } from "react";
 import { V1Node } from "@kubernetes/client-node";
+import LabelValueDisplay from "@/app/components/resource-card/LabelValueDisplay";
 
 async function Nodes() {
   const data: V1Node[] = await getNodes();
@@ -29,38 +30,30 @@ async function Nodes() {
               </div>
               <div className="flex flex-row justify-between">
                 <div className="space-y-6">
-                  <div>
-                    <p className="text-gray-500 text-sm">OS IMAGE</p>
-                    <p className="font-medium">
-                      {item?.status?.nodeInfo?.osImage}
-                    </p>
-                  </div>
+                  <LabelValueDisplay
+                    title="OS IMAGE"
+                    value={item?.status?.nodeInfo?.osImage}
+                  />
 
-                  <div>
-                    <p className="text-gray-500 text-sm">CPU</p>
-                    <p className="font-medium">{item?.status?.capacity?.cpu}</p>
-                  </div>
+                  <LabelValueDisplay
+                    title="CPU"
+                    value={item?.status?.capacity?.cpu}
+                  />
 
-                  <div>
-                    <p className="text-gray-500 text-sm">MAX MEMORY</p>
-                    <p className="font-medium">
-                      {item?.status?.capacity?.memory}
-                    </p>
-                  </div>
+                  <LabelValueDisplay
+                    title="MAX MEMORY"
+                    value={item?.status?.capacity?.memory}
+                  />
 
-                  <div>
-                    <p className="text-gray-500 text-sm">PODS </p>
-                    <p className="font-medium">
-                      {item?.status?.capacity?.pods}
-                    </p>
-                  </div>
+                  <LabelValueDisplay
+                    title="PODS"
+                    value={item?.status?.capacity?.pods}
+                  />
 
-                  <div>
-                    <p className="text-gray-500 text-sm">KUBELET VERSION</p>
-                    <p className="font-medium">
-                      {item?.status?.nodeInfo?.kubeletVersion}
-                    </p>
-                  </div>
+                  <LabelValueDisplay
+                    title="KUBELET VERSION"
+                    value={item?.status?.nodeInfo?.kubeletVersion}
+                  />
                 </div>
 
                 <div>

@@ -21,6 +21,15 @@ async function Page({ searchParams }: { searchParams: any }) {
             network resources, and a specification for how to run the
             containers.
           </p>
+          <span>
+            Learn more about{" "}
+            <a
+              className="text-blue-500 inline "
+              href={"https://kubernetes.io/docs/concepts/workloads/pods/"}
+            >
+              Pods.
+            </a>
+          </span>
         </>
       </InfoBox>
 

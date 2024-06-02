@@ -129,15 +129,17 @@ const CreateServiceForm = () => {
         <CardWrapper
           heading="Ports"
           description={
-            <>
-              <p>Target port is used to target the port exposed by the pod.</p>
-              <p>Protocol can either be TCP or UDP.</p>
+            <div className="space-y-2">
+              <p>
+                Target port is used to target the port exposed by the pod.
+                Protocol can either be TCP or UDP.
+              </p>
               <p>
                 When using NodePort type, the cluster will automatically assign
                 an available port, view services to see which port has been
-                assigned
+                assigned.
               </p>
-            </>
+            </div>
           }
           actionButton={
             <button
