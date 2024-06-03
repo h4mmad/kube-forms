@@ -1,6 +1,6 @@
 import { getCoreV1Client } from "../../utils/KubernetesClient";
 
-async function viewNamespacedService(namespace: string) {
+async function viewNamespacedService(namespace: string = "default") {
   try {
     const response = await (
       await getCoreV1Client()

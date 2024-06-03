@@ -18,6 +18,9 @@ export default function Error({
       <h2 className="text-red-500 text-lg font-semibold">
         Something went wrong!
       </h2>
+      <p>
+        {error.name}: {error.message}
+      </p>
 
       <button
         onClick={

@@ -12,9 +12,9 @@ async function Nodes() {
 
   return (
     <div className="mt-12 flex flex-row space-x-10 items-start">
-      {data?.map((item) => {
+      {data?.map((item, index) => {
         return (
-          <div className="w-full">
+          <div className="w-full" key={index}>
             <div className="bg-gradient-to-r from-blue-500 via-sky-500 to-emerald-500 w-full h-2 rounded-t-xl shadow-md" />
             <div
               key={item.metadata?.uid}

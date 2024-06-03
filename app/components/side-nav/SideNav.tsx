@@ -14,9 +14,14 @@ export async function SideNav() {
       <ul className="space-y-12 mt-12">
         {navigationData.map((item, idx) => {
           return item.isSubMenu ? (
-            <NestedNav {...item} />
+            <NestedNav {...item} key={idx} />
           ) : (
-            <NavButton href={item.path} title={item.title} icon={item.icon} />
+            <NavButton
+              href={item.path}
+              title={item.title}
+              icon={item.icon}
+              key={idx}
+            />
           );
         })}
         {/* </li> */}

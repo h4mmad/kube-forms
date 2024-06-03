@@ -11,19 +11,6 @@ export default function RootLayout({
 }>) {
   return (
     <div>
-      <div className="flex flex-row space-x-16 ">
-        <NavButton
-          href="/dashboard/service/create-service"
-          title="Create"
-          icon={<IoCreateOutline size={22} />}
-        />
-        <NavButton
-          href="/dashboard/service/view-services?namespace=default"
-          title="View"
-          icon={<IoEyeOutline size={22} />}
-        />
-      </div>
-      <hr className="mb-8 mt-3" />
       <PageHeading text="Service" />
       <InfoBox>
         <p>
@@ -42,7 +29,7 @@ export default function RootLayout({
           </Link>
         </span>
       </InfoBox>
-      <div className="mt-8 w-full">{children}</div>
+      {children}
     </div>
   );
 }

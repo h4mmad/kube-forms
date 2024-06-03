@@ -14,6 +14,7 @@ import KeyValueInput from "./KeyValueInput";
 import Container from "./Container";
 import { Helper } from "@/app/utils/lib";
 import { PageHeading } from "@/app/components/page-layout/PageHeading";
+import InfoBox from "@/app/components/page-layout/InfoBox";
 
 const submitHandler: SubmitHandler<
   z.infer<typeof createDeploymentScehma>
@@ -44,7 +45,6 @@ const CreateDeploymentForm = () => {
     <div>
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className="space-y-9 mt-9">
-          <PageHeading text="Create deployment" />
           <DeploymentName />
 
           <div className="flex flex-row justify-between space-x-12">

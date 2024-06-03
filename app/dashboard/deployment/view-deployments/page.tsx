@@ -1,4 +1,6 @@
 import NamespaceTabs from "@/app/components/input/NamespaceTabs";
+import InfoBox from "@/app/components/page-layout/InfoBox";
+import { PageHeading } from "@/app/components/page-layout/PageHeading";
 import KeyValueDisplay from "@/app/components/resource-card/KeyValueDisplay";
 import LabelValueDisplay from "@/app/components/resource-card/LabelValueDisplay";
 import ResourceCardWrapper from "@/app/components/resource-card/ResourceCardWrapper";
@@ -13,6 +15,26 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <div>
+      <PageHeading text="View deployment" />
+      <InfoBox>
+        <p>
+          A Deployment allows you to update Pods easily. You describe a desired
+          state in a Deployment, and the Deployment Controller changes the
+          actual state to the desired state.
+        </p>
+
+        <span>
+          Learn more about{" "}
+          <a
+            className="text-blue-500 inline "
+            href={
+              "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+            }
+          >
+            Deployments
+          </a>
+        </span>
+      </InfoBox>
       <NamespaceTabs baseURL="/dashboard/deployment/view-deployments" />
       <div className="flex flex-col space-y-14 mt-8">
         {deployments?.items.map((deployment) => {
