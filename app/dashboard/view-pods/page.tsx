@@ -28,14 +28,15 @@ async function Page({ searchParams }: { searchParams: any }) {
           </span>
         </>
       </InfoBox>
+      <div className="flex flex-col space-y-14 mt-8">
+        <Suspense fallback={<div>Loading...</div>}>
+          <NamespaceTabs baseURL="/dashboard/view-pods" />
+        </Suspense>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <NamespaceTabs baseURL="/dashboard/view-pods" />
-      </Suspense>
-
-      <Suspense fallback={<div>Loading...</div>}>
-        <Pods namespace={searchParams.namespace} />
-      </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Pods namespace={searchParams.namespace} />
+        </Suspense>
+      </div>
     </div>
   );
 }

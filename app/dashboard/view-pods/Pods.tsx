@@ -10,7 +10,24 @@ async function Pods({ namespace }: { namespace: string }) {
   const pods = await getNamespacedPod(namespace);
 
   return (
-    <div className="flex flex-col space-y-14 mt-8">
+    <>
+      {namespace && (
+        <div>
+          <p className="text-gray-500 text-sm">
+            To view pods using kubectl in the{" "}
+            <code className="bg-gray-200 text-red-600 px-1 rounded">
+              {namespace}
+            </code>{" "}
+            namespace, use the following command:
+          </p>
+          <pre className="overflow-x-auto  p-4 bg-gray-800 text-gray-400 rounded-xl mt-2 text-sm">
+            <code>
+              {`kubectl get pods -n ${namespace} -o custom-columns=POD_NAME:.metadata.name,NODE:.spec.nodeName,STATUS:.status.phase,POD_IP:.status.podIP,NAMESPACE:.metadata.namespace,HOST_IP:.status.hostIP,LABELS:.metadata.labels
+`}
+            </code>
+          </pre>
+        </div>
+      )}
       {pods.items.map((item: V1Pod) => {
         return (
           <ResourceCardWrapper
@@ -48,7 +65,7 @@ async function Pods({ namespace }: { namespace: string }) {
           </ResourceCardWrapper>
         );
       })}
-    </div>
+    </>
   );
 }
 

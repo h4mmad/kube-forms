@@ -4,7 +4,7 @@ import Logo from "@/public/logo.svg";
 import ClusterCard, { ContextSelector } from "./ClusterCard";
 import NavButton from "./NavButton";
 import { navigationData } from "./navData";
-import NestedNav from "../input/NestedNav";
+import NestedNav from "./NestedNav";
 
 export async function SideNav() {
   return (

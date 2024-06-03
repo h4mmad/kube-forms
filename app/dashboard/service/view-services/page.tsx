@@ -15,8 +15,25 @@ const Service = async ({ namespace }: { namespace: string }) => {
   const cluster = await getCurrentCluster();
 
   return (
-    <div>
+    <>
       <NamespaceTabs baseURL="/dashboard/service/view-services" />
+      {namespace && (
+        <div>
+          <p className="text-gray-500 text-sm">
+            To view services using kubectl in the{" "}
+            <code className="bg-gray-200 text-red-600 px-1 rounded">
+              {namespace}
+            </code>{" "}
+            namespace, use the following command:
+          </p>
+          <pre className="overflow-x-auto  p-4 bg-gray-800 text-gray-400 rounded-xl mt-2 text-sm">
+            <code>
+              {`kubectl get services -n ${namespace} -o custom-columns=NAME:.metadata.name,NAMESPACE:.metadata.namespace,TYPE:.spec.type,PORTS:.spec.ports[*].port,SELECTOR:.spec.selector
+`}
+            </code>
+          </pre>
+        </div>
+      )}
 
       <div className="flex flex-col space-y-14 mt-8">
         {data?.items.map((item) => {
@@ -92,7 +109,7 @@ const Service = async ({ namespace }: { namespace: string }) => {
           }
         })}
       </div>
-    </div>
+    </>
   );
 };
 

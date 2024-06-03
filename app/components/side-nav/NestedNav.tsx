@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { navigationDataType } from "../side-nav/navData";
+import { navigationDataType } from "./navData";
 import { useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
@@ -52,7 +52,7 @@ const NestedNav = ({
                   href={item.path}
                   className={clsx([
                     {
-                      "text-black font-medium": currentPath === item.path,
+                      "text-black font-semibold": currentPath === item.path,
                     },
                     {
                       "text-gray-500": currentPath !== item.path,

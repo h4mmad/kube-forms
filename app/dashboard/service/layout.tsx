@@ -1,8 +1,6 @@
 import InfoBox from "@/app/components/page-layout/InfoBox";
 import { PageHeading } from "@/app/components/page-layout/PageHeading";
-import NavButton from "@/app/components/side-nav/NavButton";
 import Link from "next/link";
-import { IoCreateOutline, IoEyeOutline } from "react-icons/io5";
 
 export default function RootLayout({
   children,
@@ -28,8 +26,18 @@ export default function RootLayout({
             Services.
           </Link>
         </span>
+        <iframe
+          width="450"
+          height="280"
+          src="https://www.youtube.com/embed/T4Z7visMM4E?si=I3b0-Stuw67hMWf-"
+          title="YouTube video player"
+          className="rounded-xl mt-4"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
       </InfoBox>
-      {children}
+      <div className="flex flex-col space-y-14 mt-14">{children}</div>
     </div>
   );
 }

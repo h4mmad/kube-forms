@@ -7,8 +7,8 @@ type InfoBoxProps = {
 
 function InfoBox({ children }: InfoBoxProps) {
   return (
-    <div className="bg-blue-100 p-3 w-full rounded-xl flex flex-row justify-start space-x-6 items-center mt-6">
-      <div className="w-fit ">
+    <div className="bg-blue-100 p-4 w-full rounded-xl flex flex-row justify-start space-x-6 items-start mt-6">
+      <div className="w-fit justify-self-start">
         <MdInfoOutline size={32} className="text-blue-500" />
       </div>
       {/* <p className="text-gray-600 text-sm ">{text}</p>
