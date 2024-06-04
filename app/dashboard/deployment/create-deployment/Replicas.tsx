@@ -16,7 +16,7 @@ const Replicas = () => {
       description="It is used to guarantee the availability of a specified number of identical Pods."
     >
       <input
-        className="bg-transparent mt-4 text-3xl w-full"
+        className="bg-transparent mt-2 text-4xl"
         placeholder="0"
         type="number"
         {...register("replicas", { valueAsNumber: true })}

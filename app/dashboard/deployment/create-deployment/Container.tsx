@@ -66,7 +66,7 @@ const Container = () => {
           actionButton={
             <button
               type="button"
-              className="rounded-lg px-4 text-sm py-1 border hover:bg-gray-100 "
+              className="rounded-lg px-4 text-sm py-1 border bg-black text-white"
               onClick={() => append({ containerPort: 80, protocol: "TCP" })}
             >
               Add +

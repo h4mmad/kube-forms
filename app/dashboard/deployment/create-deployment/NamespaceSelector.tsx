@@ -14,7 +14,7 @@ const NamespaceSelector = ({
   return (
     <InfoCardWrapper
       heading="Namespace"
-      description="A namespace provides a mechanism for isolating groups of resources within a single cluster."
+      description="Allows for isolating groups of resources within a cluster."
     >
       {/* <input
         {...register}

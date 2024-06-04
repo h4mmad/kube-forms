@@ -13,8 +13,6 @@ import { z } from "zod";
 import KeyValueInput from "./KeyValueInput";
 import Container from "./Container";
 import { Helper } from "@/app/utils/lib";
-import { PageHeading } from "@/app/components/page-layout/PageHeading";
-import InfoBox from "@/app/components/page-layout/InfoBox";
 
 const submitHandler: SubmitHandler<
   z.infer<typeof createDeploymentScehma>
@@ -42,7 +40,7 @@ const CreateDeploymentForm = () => {
   } = useContext(CreateDeploymentContext);
 
   return (
-    <div>
+    <div className="flex flex-col space-y-14">
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className="space-y-9 mt-9">
           <DeploymentName />
@@ -64,7 +62,7 @@ const CreateDeploymentForm = () => {
 
           <br />
 
-          <p className="text-3xl font-semibold text-black">Pod specification</p>
+          <p className="text-3xl font-medium text-black">Pod specification</p>
           <div className="flex flex-col space-y-12">
             <KeyValueInput
               Context={CreateDeploymentContext}
@@ -76,12 +74,14 @@ const CreateDeploymentForm = () => {
           </div>
         </div>
 
-        <button
-          type="submit"
-          className="px-4 py-2 mt-24 rounded-full hover:bg-[#413839] bg-black border border-black text-white font-semibold ml-auto w-fit"
-        >
-          Create deployment
-        </button>
+        <div className="w-full flex flex-row justify-end mt-24 ">
+          <button
+            type="submit"
+            className="px-4 py-2  rounded-full hover:bg-[#413839] bg-black border border-black text-white font-semibold w-fit"
+          >
+            Create deployment
+          </button>
+        </div>
       </form>
     </div>
   );
