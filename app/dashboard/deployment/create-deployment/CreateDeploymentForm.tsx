@@ -40,7 +40,7 @@ const CreateDeploymentForm = () => {
   } = useContext(CreateDeploymentContext);
 
   return (
-    <div className="flex flex-col space-y-14">
+    <div className="flex flex-col space-y-14 mt-7">
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className="space-y-9 mt-9">
           <DeploymentName />
