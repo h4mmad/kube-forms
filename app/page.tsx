@@ -32,7 +32,7 @@ const Page = () => {
     return () => clearInterval(interval);
   }, [words.length]);
   return (
-    <div className="bg-white w-screen h-screen p-6  flex flex-col justify-between overflow-hidden">
+    <div className="bg-white w-screen h-screen p-8  flex flex-col justify-between overflow-hidden">
       <div className="flex flex-row justify-between items-center">
         <Image src={Logo} alt="logo" width={140} height={140} />
         <Link

@@ -87,17 +87,20 @@ async function Page() {
     <div>
       <PageHeading text="Nodes" />
       <InfoBox>
-        <p>
-          Kubernetes runs your workload by placing containers into Pods to run
-          on Nodes.
-        </p>
-        <p>
-          A node may be a virtual or physical machine, depending on the cluster.
-        </p>
-        <p>
-          Each node is managed by the control plane and contains the services
-          necessary to run Pods.
-        </p>
+        <div className="text-gray-700">
+          <p>
+            Kubernetes runs your workload by placing containers into Pods to run
+            on Nodes.
+          </p>
+          <p>
+            A node may be a virtual or physical machine, depending on the
+            cluster.
+          </p>
+          <p>
+            Each node is managed by the control plane and contains the services
+            necessary to run Pods.
+          </p>
+        </div>
       </InfoBox>
 
       <Suspense

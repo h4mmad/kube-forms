@@ -3,14 +3,8 @@ import ErrorMessage from "@/app/components/input/InputErrorMessage";
 import InputBox from "@/app/components/input/InputBox";
 import { CreateDeploymentContext } from "@/app/context/contexts";
 import { useContext } from "react";
-import { Controller, useFieldArray } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
 import { MdDelete } from "react-icons/md";
-import Select from "react-select";
-
-const options = [
-  { value: "TCP", label: "TCP" },
-  { value: "UDP", label: "UDP" },
-];
 
 const Container = () => {
   const {
