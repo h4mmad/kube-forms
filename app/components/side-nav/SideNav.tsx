@@ -8,7 +8,7 @@ import NestedNav from "./NestedNav";
 
 export async function SideNav() {
   return (
-    <nav className="flex flex-col p-4 border-r w-fit h-screen ">
+    <nav className=" flex flex-col p-4 border-r w-fit h-screen ">
       <Image alt="logo" src={Logo} width={150} height={150} />
       <ClusterCard />
       <ul className="space-y-12 mt-12">

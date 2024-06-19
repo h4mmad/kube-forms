@@ -47,7 +47,7 @@ const CreateServiceForm = () => {
     {
       label: "Node Port",
       value: "NodePort",
-      info: "Exposes the Service on each Node's IP at a static port (the NodePort). To make the node port available, Kubernetes sets up a cluster IP address, you can access the Pods from outside the cluster",
+      info: "NodePort service allows external traffic to access your Kubernetes service by opening a specific port on all the nodes in your cluster. You can reach the service using any node's IP address and the assigned port number.",
       src: NodePort,
     },
   ];
@@ -91,13 +91,14 @@ const CreateServiceForm = () => {
             description="A selector in a service is used to define which pods the service should route traffic to. For example, if a service has a selector 'app: frontend', it will match all pods that have the label 'app' set to 'frontend'."
           />
           <CardWrapper
-            heading="Type"
+            heading="Service type"
             description={
               <>
                 <p>
-                  For some parts of your application you may want to expose a
-                  Service to an external IP address, which is accessible from
-                  outside of your cluster.
+                  NodePort service allows external traffic to access your
+                  Kubernetes service by opening a specific port on all the nodes
+                  in your cluster. You can reach the service using any node's IP
+                  address and the assigned port number.
                 </p>
               </>
             }
@@ -112,7 +113,7 @@ const CreateServiceForm = () => {
               <option value={options[1].value}>{options[1].label}</option>
             </select>
 
-            <div className="flex space-x-7 flex-row border rounded-xl p-6 mt-6 bg-white shadow-md">
+            <div className="flex space-x-7 flex-row border rounded-xl p-6 mt-6 bg-slate-50">
               <Image
                 alt="logo"
                 src={options[index].src}

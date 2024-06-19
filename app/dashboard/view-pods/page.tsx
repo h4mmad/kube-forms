@@ -11,24 +11,22 @@ async function Page({ searchParams }: { searchParams: any }) {
       <PageHeading text="Pods" />
 
       <InfoBox>
-        <>
-          <div className="text-gray-700">
-            <p>
-              A Pod is a group of one or more containers, with shared storage
-              and network resources, and a specification for how to run the
-              containers.
-            </p>
-            <span>
-              Learn more about{" "}
-              <a
-                className="text-blue-500 inline "
-                href={"https://kubernetes.io/docs/concepts/workloads/pods/"}
-              >
-                Pods.
-              </a>
-            </span>
-          </div>
-        </>
+        <div className="text-gray-700">
+          <p>
+            A Pod is a group of one or more containers, with shared storage and
+            network resources, and a specification for how to run the
+            containers.
+          </p>
+          <span>
+            Learn more about{" "}
+            <a
+              className="text-blue-500 inline "
+              href={"https://kubernetes.io/docs/concepts/workloads/pods/"}
+            >
+              Pods.
+            </a>
+          </span>
+        </div>
       </InfoBox>
       <div className="flex flex-col space-y-14 mt-8">
         <Suspense fallback={<div>Loading...</div>}>
