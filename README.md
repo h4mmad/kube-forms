@@ -1,3 +1,4 @@
+A dashboard designed to simplify configuration of resources without the use of command line tools such as kubectl or YAML configuration files.
 
 1. docker pull h4mmad/kube-forms-jun-5
 2. docker run --net=host h4mmad/kube-forms-jun-5
